@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Star Consultancy Services | NIOS 10-12, B.Tech, MBA, PhD, Diploma, Polytechnic Admissions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{font-family:'Inter',sans-serif}
+        ::-webkit-scrollbar{width:8px}
+        ::-webkit-scrollbar-track{background:#09090b}
+        ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
+        ::-webkit-scrollbar-thumb:hover{background:#ef4444}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes ping{75%,100%{transform:scale(2);opacity:0}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(239,68,68,.3)}50%{box-shadow:0 0 40px rgba(239,68,68,.6)}}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        .animate-float{animation:float 3s ease-in-out infinite}
+        .animate-float-d{animation:float 4s ease-in-out infinite 1s}
+        .clip-path-slant{clip-path:polygon(0 0,100% 0,100% 85%,0 100%)}
+        .gradient-text{background:linear-gradient(to right,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gradient-text-blue{background:linear-gradient(to right,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gradient-text-green{background:linear-gradient(to right,#22c55e,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gradient-text-purple{background:linear-gradient(to right,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gradient-text-yellow{background:linear-gradient(to right,#eab308,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        html{scroll-behavior:smooth}
+        .toast{transform:translateX(120%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+        .toast.show{transform:translateX(0)}
+        .course-card{transition:all .2s ease}
+        .course-card:hover{transform:translateY(-6px)}
+        .mode-tab.active{background:#dc2626!important;color:#fff!important;border-color:#dc2626!important}
+        .mode-panel{display:none}
+        .mode-panel.active{display:grid}
+        .marquee{overflow:hidden;white-space:nowrap}
+        .marquee-inner{display:inline-block;animation:marquee 25s linear infinite}
+        .online-card{position:relative;overflow:hidden}
+        .online-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(239,68,68,.1),transparent 30%);animation:spin 4s linear infinite;opacity:0;transition:opacity .3s}
+        .online-card:hover::before{opacity:1}
+    </style>
+</head>
+<body class="bg-[#020617] text-white overflow-x-hidden">
+
+<!-- Toast -->
+<div id="toast" class="toast fixed top-24 right-6 z-[100] bg-green-600 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3">
+    <i data-lucide="check-circle" class="w-5 h-5"></i>
+    <span id="toast-msg">Submitted successfully!</span>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-all duration-300" style="background:rgba(2,6,23,.8);backdrop-filter:blur(12px)">
+    <div class="max-w-7xl mx-auto w-full px-4 lg:px-8 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2 flex-shrink-0">
+            <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                <i data-lucide="star" class="w-5 h-5 text-white fill-white"></i>
+            </div>
+            <div class="leading-tight">
+                <span class="text-base lg:text-lg font-semibold block">Moon Star</span>
+                <span class="text-[9px] text-slate-400 uppercase tracking-widest">Consultancy Services</span>
+            </div>
+        </a>
+        <div class="hidden xl:flex items-center gap-6">
+            <a href="#home" class="text-slate-300 hover:text-white transition-colors text-sm">Home</a>
+            <a href="#courses" class="text-slate-300 hover:text-white transition-colors text-sm">Courses</a>
+            <a href="#modes" class="text-slate-300 hover:text-white transition-colors text-sm">Study Modes</a>
+            <a href="#online-services" class="text-slate-300 hover:text-white transition-colors text-sm">Online Services</a>
+            <a href="#about" class="text-slate-300 hover:text-white transition-colors text-sm">About</a>
+            <a href="#testimonials" class="text-slate-300 hover:text-white transition-colors text-sm">Reviews</a>
+            <a href="#contact" class="text-slate-300 hover:text-white transition-colors text-sm">Contact</a>
+        </div>
+        <div class="hidden xl:flex items-center gap-3">
+            <a href="tel:7982561083" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+                7982561083
+            </a>
+            <a href="#contact" class="bg-red-600 hover:bg-red-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-all shadow-lg shadow-red-600/20">
+                Free Counseling
+            </a>
+        </div>
+        <button id="mobile-toggle" class="xl:hidden text-white p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] bg-[#020617]/98 backdrop-blur-md hidden flex-col items-center justify-center gap-5">
+    <button id="mobile-close" class="absolute top-6 right-6 text-white"><i data-lucide="x" class="w-7 h-7"></i></button>
+    <a href="tel:7982561083" class="text-red-400 text-lg font-medium flex items-center gap-2 mb-4"><i data-lucide="phone" class="w-5 h-5"></i> 7982561083</a>
+    <a href="#home" class="mobile-link text-xl font-semibold text-white hover:text-red-500 transition-colors">Home</a>
+    <a href="#courses" class="mobile-link text-xl font-semibold text-white hover:text-red-500 transition-colors">Courses</a>
+    <a href="#modes" class="mobile-link text-xl font-semibold text-white hover:text-red-500 transition-colors">Study Modes</a>
+    <a href="#online-services" class="mobile-link text-xl font-semibold text-white hover:text-red-500 transition-colors">Online Services</a>
+    <a href="#about" class="mobile-link text-xl font-semibold text-white hover:text-red-500 transition-colors">About</a>
+    <a href="#testimonials" class="mobile-link text-xl font-semibold text-white hover:text-red-500 transition-colors">Reviews</a>
+    <a href="#contact" class="mobile-link text-xl font-semibold text-white hover:text-red-500 transition-colors">Contact</a>
+    <a href="#contact" class="mt-4 bg-red-600 hover:bg-red-500 text-white px-8 py-3 rounded-full font-medium transition-all">Free Counseling</a>
+</div>
+
+<!-- Hero -->
+<section id="home" class="relative clip-path-slant bg-[#020617] overflow-hidden">
+    <div class="absolute top-20 left-10 w-[500px] h-[500px] border border-red-600/20 rounded-full" style="animation:spin 10s linear infinite"></div>
+    <div class="absolute bottom-10 right-10 w-[400px] h-[400px] border border-blue-600/20 rounded-full" style="animation:spin 15s linear infinite reverse"></div>
+    <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-red-600 rounded-full blur-[64px] opacity-20 mix-blend-screen"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-600 rounded-full blur-[64px] opacity-20 mix-blend-screen"></div>
+
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 pt-28 pb-44 lg:pt-32 lg:pb-48">
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+            <div class="relative z-10">
+                <div class="inline-flex items-center gap-2 bg-red-600/10 border border-red-600/20 rounded-full px-4 py-2 mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                    <span class="text-red-400 text-sm font-medium">Admissions Open 2025-26 — All Modes</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
+                    Your Complete <span class="gradient-text">Admission</span> Solution
+                </h1>
+                <p class="text-base lg:text-lg text-slate-400 leading-relaxed mb-8 max-w-lg">
+                    NIOS 10th-12th · B.Tech · M.Tech · PhD · MBA · Diploma · Polytechnic — Available in <strong class="text-white">Regular</strong>, <strong class="text-white">Distance</strong> & <strong class="text-white">Online</strong> modes. One stop for all your education needs.
+                </p>
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <a href="#contact" class="bg-red-600 hover:bg-red-500 text-white px-7 py-3.5 rounded-full text-base font-medium transition-all shadow-lg shadow-red-600/20 flex items-center gap-2">
+                        Book Free Counseling <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://wa.me/917982561083" target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-7 py-3.5 rounded-full text-base font-medium transition-all shadow-lg shadow-green-600/20 flex items-center gap-2">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp
+                    </a>
+                </div>
+                <div class="flex flex-wrap items-center gap-6">
+                    <div><div class="text-2xl lg:text-3xl font-bold text-white">5000+</div><div class="text-xs text-slate-500">Students Placed</div></div>
+                    <div class="w-px h-8 bg-white/10"></div>
+                    <div><div class="text-2xl lg:text-3xl font-bold text-white">50+</div><div class="text-xs text-slate-500">Courses</div></div>
+                    <div class="w-px h-8 bg-white/10"></div>
+                    <div><div class="text-2xl lg:text-3xl font-bold text-white">3</div><div class="text-xs text-slate-500">Modes</div></div>
+                    <div class="w-px h-8 bg-white/10"></div>
+                    <div><div class="text-2xl lg:text-3xl font-bold text-white">100+</div><div class="text-xs text-slate-500">Universities</div></div>
+                </div>
+            </div>
+            <div class="relative hidden lg:block">
+                <img src="https://picsum.photos/seed/moonstar-edu/800/600.jpg" alt="Education consultancy" class="rounded-2xl shadow-2xl shadow-black/50 relative z-10">
+                <div class="absolute -bottom-8 -left-8 bg-slate-900/95 backdrop-blur-lg rounded-2xl p-4 z-20 border border-white/10 animate-float shadow-2xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center"><i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i></div>
+                        <div><div class="font-semibold text-sm text-white">NIOS 12th Admitted</div><div class="text-xs text-slate-400">April 2025 Batch</div></div>
+                    </div>
+                </div>
+                <div class="absolute -top-4 -right-4 bg-slate-900/95 backdrop-blur-lg rounded-2xl p-4 z-20 border border-white/10 animate-float-d shadow-2xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center"><i data-lucide="graduation-cap" class="w-5 h-5 text-red-500"></i></div>
+                        <div><div class="font-semibold text-sm text-white">B.Tech Admission</div><div class="text-xs text-slate-400">Online Mode Confirmed</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Marquee Courses Bar -->
+<section class="bg-[#0f172a] border-y border-white/5 py-4">
+    <div class="marquee">
+        <div class="marquee-inner">
+            <span class="inline-flex items-center gap-8 text-sm text-slate-500 font-medium">
+                <span class="text-red-500">★</span> NIOS 10th &nbsp; <span class="text-red-500">★</span> NIOS 12th &nbsp; <span class="text-red-500">★</span> B.Tech &nbsp; <span class="text-red-500">★</span> M.Tech &nbsp; <span class="text-red-500">★</span> PhD &nbsp; <span class="text-red-500">★</span> MBA &nbsp; <span class="text-red-500">★</span> Diploma &nbsp; <span class="text-red-500">★</span> Polytechnic &nbsp; <span class="text-red-500">★</span> Regular &nbsp; <span class="text-red-500">★</span> Distance &nbsp; <span class="text-red-500">★</span> Online &nbsp; <span class="text-red-500">★</span> BBA &nbsp; <span class="text-red-500">★</span> BCA &nbsp; <span class="text-red-500">★</span> MCA &nbsp; <span class="text-red-500">★</span> B.Sc &nbsp; <span class="text-red-500">★</span> M.Sc &nbsp; <span class="text-red-500">★</span> BA &nbsp; <span class="text-red-500">★</span> MA &nbsp; <span class="text-red-500">★</span> B.Com &nbsp; <span class="text-red-500">★</span> M.Com
+                <span class="text-red-500 ml-8">★</span> NIOS 10th &nbsp; <span class="text-red-500">★</span> NIOS 12th &nbsp; <span class="text-red-500">★</span> B.Tech &nbsp; <span class="text-red-500">★</span> M.Tech &nbsp; <span class="text-red-500">★</span> PhD &nbsp; <span class="text-red-500">★</span> MBA &nbsp; <span class="text-red-500">★</span> Diploma &nbsp; <span class="text-red-500">★</span> Polytechnic &nbsp; <span class="text-red-500">★</span> Regular &nbsp; <span class="text-red-500">★</span> Distance &nbsp; <span class="text-red-500">★</span> Online &nbsp; <span class="text-red-500">★</span> BBA &nbsp; <span class="text-red-500">★</span> BCA &nbsp; <span class="text-red-500">★</span> MCA &nbsp; <span class="text-red-500">★</span> B.Sc &nbsp; <span class="text-red-500">★</span> M.Sc &nbsp; <span class="text-red-500">★</span> BA &nbsp; <span class="text-red-500">★</span> MA &nbsp; <span class="text-red-500">★</span> B.Com &nbsp; <span class="text-red-500">★</span> M.Com
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section id="courses" class="py-24 bg-[#020617] relative">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-red-600 rounded-full blur-[128px] opacity-10"></div>
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <span class="text-red-500 text-sm font-semibold uppercase tracking-widest">Our Courses</span>
+            <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mt-3 mb-4">All Courses <span class="gradient-text">Under One Roof</span></h2>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">From school level to doctoral programs — we offer admission guidance for every course in every mode.</p>
+        </div>
+
+        <!-- School Level -->
+        <div class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-yellow-500/10 rounded-lg flex items-center justify-center"><i data-lucide="book-open" class="w-5 h-5 text-yellow-500"></i></div>
+                <h3 class="text-xl font-semibold">School Level — NIOS</h3>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-yellow-500/10 text-yellow-500 text-xs font-bold px-3 py-1 rounded-full">NIOS</span>
+                        <span class="text-xs text-slate-500">Distance / Open</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">NIOS 10th Admission</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Complete your secondary education through NIOS open schooling. Valid for all further studies.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Hindi</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">English</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">All Subjects</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">Enquire Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-yellow-500/10 text-yellow-500 text-xs font-bold px-3 py-1 rounded-full">NIOS</span>
+                        <span class="text-xs text-slate-500">Distance / Open</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">NIOS 12th Admission</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Senior secondary certification from NIOS. Eligible for all degree programs and government jobs.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Science</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Commerce</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Arts</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">Enquire Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-yellow-500/10 text-yellow-500 text-xs font-bold px-3 py-1 rounded-full">NIOS</span>
+                        <span class="text-xs text-slate-500">Support</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">NIOS TMA / Assignment Help</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Get guidance on TMA (Tutor Marked Assignment) preparation, submission and exam preparation tips.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">TMA</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Exam Prep</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Results</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">Enquire Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diploma & Polytechnic -->
+        <div class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center"><i data-lucide="wrench" class="w-5 h-5 text-blue-500"></i></div>
+                <h3 class="text-xl font-semibold">Diploma & Polytechnic</h3>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">POLYTECHNIC</span>
+                        <span class="text-xs text-slate-500">Regular</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Polytechnic Diploma</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">3-year diploma in Engineering. Lateral entry to B.Tech 2nd year after completion. All branches available.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Mechanical</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Civil</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">CS / IT</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">Enquire Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">DIPLOMA</span>
+                        <span class="text-xs text-slate-500">Distance / Online</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Diploma Programs</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">1-2 year diploma courses in Management, IT, Engineering and more. UGC/DEB approved universities.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Management</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">IT</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Engineering</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">Enquire Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">POST DIPLOMA</span>
+                        <span class="text-xs text-slate-500">All Modes</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">PG Diploma & Advanced Diploma</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Specialized post-graduate diploma programs for working professionals looking to upskill quickly.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">PGDM</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Advanced</span>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded-full">Specialized</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">Enquire Now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Undergraduate -->
+        <div class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center"><i data-lucide="graduation-cap" class="w-5 h-5 text-green-500"></i></div>
+                <h3 class="text-xl font-semibold">Undergraduate Programs</h3>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group text-center">
+                    <div class="w-14 h-14 bg-red-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="cpu" class="w-7 h-7 text-red-500"></i></div>
+                    <h4 class="font-semibold mb-1">B.Tech</h4>
+                    <p class="text-slate-500 text-xs mb-3">All Branches · 4 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Distance</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Online</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group text-center">
+                    <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="briefcase" class="w-7 h-7 text-blue-500"></i></div>
+                    <h4 class="font-semibold mb-1">MBA / BBA</h4>
+                    <p class="text-slate-500 text-xs mb-3">All Specializations · 2-3 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Distance</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Online</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group text-center">
+                    <div class="w-14 h-14 bg-purple-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="monitor" class="w-7 h-7 text-purple-500"></i></div>
+                    <h4 class="font-semibold mb-1">BCA / B.Sc</h4>
+                    <p class="text-slate-500 text-xs mb-3">IT, Science & More · 3 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Distance</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Online</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group text-center">
+                    <div class="w-14 h-14 bg-orange-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="book-open" class="w-7 h-7 text-orange-500"></i></div>
+                    <h4 class="font-semibold mb-1">BA / B.Com</h4>
+                    <p class="text-slate-500 text-xs mb-3">Arts, Commerce · 3 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Distance</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Online</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Postgraduate & Doctoral -->
+        <div>
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center"><i data-lucide="award" class="w-5 h-5 text-purple-500"></i></div>
+                <h3 class="text-xl font-semibold">Postgraduate & Doctoral</h3>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group text-center">
+                    <div class="w-14 h-14 bg-red-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="cpu" class="w-7 h-7 text-red-500"></i></div>
+                    <h4 class="font-semibold mb-1">M.Tech</h4>
+                    <p class="text-slate-500 text-xs mb-3">All Specializations · 2 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Distance</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group text-center">
+                    <div class="w-14 h-14 bg-green-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="flask-conical" class="w-7 h-7 text-green-500"></i></div>
+                    <h4 class="font-semibold mb-1">M.Sc / MA</h4>
+                    <p class="text-slate-500 text-xs mb-3">Science & Arts · 2 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Distance</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Online</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+                <div class="course-card bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer group text-center">
+                    <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="monitor" class="w-7 h-7 text-blue-500"></i></div>
+                    <h4 class="font-semibold mb-1">MCA / M.Com</h4>
+                    <p class="text-slate-500 text-xs mb-3">Computer & Commerce · 2 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Distance</span>
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full">Online</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+                <div class="course-card bg-gradient-to-br from-slate-900/80 to-red-900/20 border border-red-600/20 rounded-2xl p-6 cursor-pointer group text-center" style="animation:pulse-glow 3s ease-in-out infinite">
+                    <div class="w-14 h-14 bg-red-600/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="scroll-text" class="w-7 h-7 text-red-400"></i></div>
+                    <h4 class="font-semibold mb-1">PhD / Doctorate</h4>
+                    <p class="text-slate-500 text-xs mb-3">All Streams · 3-5 Years</p>
+                    <div class="flex flex-wrap justify-center gap-1 mb-3">
+                        <span class="bg-red-900/30 text-red-300 text-[10px] px-2 py-0.5 rounded-full">Regular</span>
+                        <span class="bg-red-900/30 text-red-300 text-[10px] px-2 py-0.5 rounded-full">Part-Time</span>
+                    </div>
+                    <a href="#contact" class="text-red-400 text-xs font-medium">Enquire →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Study Modes Section -->
+<section id="modes" class="py-24 bg-[#0f172a] relative">
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-600 rounded-full blur-[128px] opacity-10"></div>
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
+        <div class="text-center mb-12">
+            <span class="text-red-500 text-sm font-semibold uppercase tracking-widest">Study Modes</span>
+            <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mt-3 mb-4">Choose Your <span class="gradient-text">Learning Mode</span></h2>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Every course available in the mode that suits your life — Regular, Distance, or Online.</p>
+        </div>
+
+        <!-- Mode Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <button class="mode-tab active border border-white/10 rounded-full px-6 py-2.5 text-sm font-medium transition-all" data-mode="regular">
+                <span class="flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4"></i> Regular Mode</span>
+            </button>
+            <button class="mode-tab border border-white/10 rounded-full px-6 py-2.5 text-sm font-medium text-slate-400 transition-all" data-mode="distance">
+                <span class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> Distance Mode</span>
+            </button>
+            <button class="mode-tab border border-white/10 rounded-full px-6 py-2.5 text-sm font-medium text-slate-400 transition-all" data-mode="online">
+                <span class="flex items-center gap-2"><i data-lucide="wifi" class="w-4 h-4"></i> Online Mode</span>
+            </button>
+        </div>
+
+        <!-- Regular Panel -->
+        <div class="mode-panel active grid md:grid-cols-3 gap-6" id="panel-regular">
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="users" class="w-6 h-6 text-red-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">Classroom Learning</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Attend regular classes at top affiliated colleges and universities. Best for students who want the traditional campus experience.</p>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="flask-conical" class="w-6 h-6 text-red-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">Labs & Practicals</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Full access to laboratories, workshops, libraries and campus facilities. Hands-on learning for B.Tech, Polytechnic & Science programs.</p>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="handshake" class="w-6 h-6 text-red-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">Placement Support</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Regular mode programs come with campus placement opportunities, internships, and industry connections.</p>
+            </div>
+        </div>
+
+        <!-- Distance Panel -->
+        <div class="mode-panel grid md:grid-cols-3 gap-6" id="panel-distance">
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="book-copy" class="w-6 h-6 text-blue-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">Study Material at Doorstep</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Receive books, study guides and materials by post or online. Learn at your own pace from anywhere in India.</p>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="calendar-check" class="w-6 h-6 text-blue-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">Flexible Exam Schedule</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Exams at designated centers. Flexible schedule options for working professionals. Weekend exam slots available.</p>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="badge-check" class="w-6 h-6 text-blue-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">UGC-DEB Approved</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">All distance programs are from UGC-DEB approved universities. Degrees valid for government jobs and higher education.</p>
+            </div>
+        </div>
+
+        <!-- Online Panel -->
+        <div class="mode-panel grid md:grid-cols-3 gap-6" id="panel-online">
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-green-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="laptop" class="w-6 h-6 text-green-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">100% Online Classes</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Live & recorded lectures accessible from your phone or laptop. No need to visit any campus or center.</p>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-green-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="smartphone" class="w-6 h-6 text-green-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">Learn Anytime, Anywhere</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Perfect for working professionals. Study at night, on weekends, or during travel. Full flexibility with your schedule.</p>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8">
+                <div class="w-12 h-12 bg-green-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="shield-check" class="w-6 h-6 text-green-500"></i></div>
+                <h3 class="text-lg font-semibold mb-2">WES & UGC Recognized</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Online degrees from top NAAC A++ universities. Recognized for abroad education, WES evaluation and government jobs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Online Services Section -->
+<section id="online-services" class="py-24 bg-[#020617] relative overflow-hidden">
+    <div class="absolute top-1/2 right-0 w-96 h-96 bg-purple-600 rounded-full blur-[128px] opacity-10"></div>
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
+        <div class="text-center mb-16">
+            <span class="text-red-500 text-sm font-semibold uppercase tracking-widest">Online Services</span>
+            <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mt-3 mb-4">Everything <span class="gradient-text">Online</span></h2>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Can't visit our office? No problem. Get the complete Moon Star experience from the comfort of your home.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="online-card bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-1 transition-all">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="video" class="w-6 h-6 text-purple-500"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Video Counseling</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Free one-on-one video consultation via WhatsApp/Zoom. Get expert guidance without stepping out.</p>
+                </div>
+            </div>
+            <div class="online-card bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-1 transition-all">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="file-up" class="w-6 h-6 text-purple-500"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Online Document Submission</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Upload all documents via WhatsApp or email. We handle the rest — no physical paperwork needed.</p>
+                </div>
+            </div>
+            <div class="online-card bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-1 transition-all">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="credit-card" class="w-6 h-6 text-purple-500"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Online Payment</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Pay fees securely via UPI, Google Pay, PhonePe, bank transfer or net banking. Instant receipt.</p>
+                </div>
+            </div>
+            <div class="online-card bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-1 transition-all">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="file-check" class="w-6 h-6 text-purple-500"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Digital Admission Confirmation</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Receive admission confirmation, ID card and enrollment details digitally on your email and WhatsApp.</p>
+                </div>
+            </div>
+            <div class="online-card bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-1 transition-all">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="headphones" class="w-6 h-6 text-purple-500"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">24/7 WhatsApp Support</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Got a query at midnight? Message us on WhatsApp. We're available round the clock for our students.</p>
+                </div>
+            </div>
+            <div class="online-card bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-1 transition-all">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-5"><i data-lucide="truck" class="w-6 h-6 text-purple-500"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Courier Tracking</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Track your degree certificates, mark sheets and documents delivered to your doorstep via courier.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-24 bg-[#0f172a] relative overflow-hidden">
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-600 rounded-full blur-[128px] opacity-10"></div>
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="relative">
+                <img src="https://picsum.photos/seed/moonstar-team/700/500.jpg" alt="Moon Star team" class="rounded-2xl shadow-lg w-full">
+                <div class="absolute -bottom-6 -right-6 bg-red-600 rounded-2xl p-6 text-center shadow-xl">
+                    <div class="text-4xl font-bold">12+</div>
+                    <div class="text-sm text-red-100">Years of<br>Excellence</div>
+                </div>
+            </div>
+            <div>
+                <span class="text-red-500 text-sm font-semibold uppercase tracking-widest">About Us</span>
+                <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mt-3 mb-6">Why <span class="gradient-text">Moon Star?</span></h2>
+                <p class="text-slate-400 text-lg leading-relaxed mb-6">
+                    Moon Star Consultancy Services is a trusted name in education consulting. From NIOS 10th-12th to PhD — from Regular classroom programs to fully Online degrees — we are your single window for every admission need.
+                </p>
+                <p class="text-slate-400 leading-relaxed mb-8">
+                    We work only with UGC recognized, NAAC accredited, and DEB approved universities. Every degree we help you earn is legitimate, valuable, and recognized everywhere — whether for jobs, higher education, or abroad opportunities.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i><span class="text-slate-300 text-sm">100+ UGC Approved Universities</span></div>
+                    <div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i><span class="text-slate-300 text-sm">Transparent Fee Structure</span></div>
+                    <div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i><span class="text-slate-300 text-sm">No Hidden Charges</span></div>
+                    <div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i><span class="text-slate-300 text-sm">Complete Online Process</span></div>
+                    <div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i><span class="text-slate-300 text-sm">All India Service</span></div>
+                    <div class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"></i><span class="text-slate-300 text-sm">Lifetime Support</span></div>
+                </div>
+                <a href="#contact" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white px-8 py-3.5 rounded-full font-medium transition-all shadow-lg shadow-red-600/20">
+                    Talk to Us Now <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-20 bg-[#020617] relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-red-600/5 to-blue-600/5"></div>
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center"><div class="text-4xl lg:text-5xl font-bold gradient-text mb-1" data-count="5000">0+</div><div class="text-slate-400 text-sm">Students Placed</div></div>
+            <div class="text-center"><div class="text-4xl lg:text-5xl font-bold gradient-text mb-1" data-count="100">0+</div><div class="text-slate-400 text-sm">Universities</div></div>
+            <div class="text-center"><div class="text-4xl lg:text-5xl font-bold gradient-text mb-1" data-count="50">0+</div><div class="text-slate-400 text-sm">Courses Offered</div></div>
+            <div class="text-center"><div class="text-4xl lg:text-5xl font-bold gradient-text mb-1" data-count="98">0%</div><div class="text-slate-400 text-sm">Satisfaction Rate</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="py-24 bg-[#0f172a] relative">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-red-500 text-sm font-semibold uppercase tracking-widest">Student Reviews</span>
+            <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mt-3 mb-4">What Students <span class="gradient-text">Say About Us</span></h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-2 transition-all">
+                <div class="flex gap-1 mb-4">
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                </div>
+                <p class="text-slate-300 leading-relaxed mb-6">"I completed my NIOS 12th through Moon Star. The entire process was online — from admission to getting my marksheet. Very smooth and professional service."</p>
+                <div class="flex items-center gap-3">
+                    <img src="https://picsum.photos/seed/review1/100/100.jpg" alt="Student" class="w-11 h-11 rounded-full object-cover">
+                    <div><div class="font-semibold text-sm">Rakesh Kumar</div><div class="text-slate-500 text-xs">NIOS 12th — Distance Mode</div></div>
+                </div>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-2 transition-all">
+                <div class="flex gap-1 mb-4">
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                </div>
+                <p class="text-slate-300 leading-relaxed mb-6">"Got my B.Tech admission in online mode while working full-time. Moon Star helped me choose the right university and handled all paperwork. Highly recommended!"</p>
+                <div class="flex items-center gap-3">
+                    <img src="https://picsum.photos/seed/review2/100/100.jpg" alt="Student" class="w-11 h-11 rounded-full object-cover">
+                    <div><div class="font-semibold text-sm">Sneha Patil</div><div class="text-slate-500 text-xs">B.Tech (CSE) — Online Mode</div></div>
+                </div>
+            </div>
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8 hover:-translate-y-2 transition-all">
+                <div class="flex gap-1 mb-4">
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                </div>
+                <p class="text-slate-300 leading-relaxed mb-6">"Pursuing my MBA through distance education. The counselor was very patient and explained everything clearly. Fee structure was transparent with no hidden costs."</p>
+                <div class="flex items-center gap-3">
+                    <img src="https://picsum.photos/seed/review3/100/100.jpg" alt="Student" class="w-11 h-11 rounded-full object-cover">
+                    <div><div class="font-semibold text-sm">Arif Khan</div><div class="text-slate-500 text-xs">MBA — Distance Mode</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-[#020617] relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-blue-600/10"></div>
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600 rounded-full blur-[128px] opacity-10"></div>
+    <div class="max-w-4xl mx-auto px-4 lg:px-8 text-center relative z-10">
+        <div class="inline-flex items-center gap-2 bg-red-600/10 border border-red-600/20 rounded-full px-4 py-2 mb-6">
+            <i data-lucide="zap" class="w-4 h-4 text-red-400"></i>
+            <span class="text-red-400 text-sm font-medium">Admissions Closing Soon — 2025 Batch</span>
+        </div>
+        <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-6">Don't Delay Your <span class="gradient-text">Education</span></h2>
+        <p class="text-slate-400 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">Whether you need NIOS 10th/12th, B.Tech, MBA, PhD or any diploma — call or WhatsApp us now for free counseling. Entire process can be done online!</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="tel:7982561083" class="bg-red-600 hover:bg-red-500 text-white px-10 py-4 rounded-full text-lg font-medium transition-all shadow-lg shadow-red-600/20 flex items-center gap-2">
+                <i data-lucide="phone" class="w-5 h-5"></i> Call: 7982561083
+            </a>
+            <a href="https://wa.me/917982561083" target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-10 py-4 rounded-full text-lg font-medium transition-all shadow-lg shadow-green-600/20 flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp Us
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-24 bg-[#0f172a] relative">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            <div>
+                <span class="text-red-500 text-sm font-semibold uppercase tracking-widest">Contact Us</span>
+                <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mt-3 mb-6">Get In <span class="gradient-text">Touch</span></h2>
+                <p class="text-slate-400 text-lg leading-relaxed mb-10">Reach out to us through any of these channels. We respond within 1 hour on WhatsApp and email.</p>
+                
+                <div class="space-y-6">
+                    <a href="tel:7982561083" class="flex items-start gap-4 group">
+                        <div class="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-600/20 transition-colors"><i data-lucide="phone" class="w-5 h-5 text-red-500"></i></div>
+                        <div><div class="font-semibold mb-1">Phone / WhatsApp</div><div class="text-red-400 text-lg font-medium">7982561083</div><div class="text-slate-500 text-xs mt-1">Available 24/7 on WhatsApp</div></div>
+                    </a>
+                    <a href="mailto:yakubalam@yahoo.com" class="flex items-start gap-4 group">
+                        <div class="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-600/20 transition-colors"><i data-lucide="mail" class="w-5 h-5 text-red-500"></i></div>
+                        <div><div class="font-semibold mb-1">Email (Primary)</div><div class="text-red-400 font-medium">yakubalam@yahoo.com</div></div>
+                    </a>
+                    <a href="mailto:moonstar_consultancy@gmail.com" class="flex items-start gap-4 group">
+                        <div class="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-600/20 transition-colors"><i data-lucide="mail" class="w-5 h-5 text-red-500"></i></div>
+                        <div><div class="font-semibold mb-1">Email (Consultancy)</div><div class="text-red-400 font-medium">moonstar_consultancy@gmail.com</div></div>
+                    </a>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5 text-red-500"></i></div>
+                        <div><div class="font-semibold mb-1">Working Hours</div><div class="text-slate-400 text-sm">Mon - Sat: 9:00 AM - 8:00 PM<br>Sunday: WhatsApp Only</div></div>
+                    </div>
+                </div>
+
+                <!-- Quick Contact Buttons -->
+                <div class="mt-10 grid grid-cols-2 gap-3">
+                    <a href="tel:7982561083" class="bg-red-600/10 border border-red-600/20 rounded-xl p-4 text-center hover:bg-red-600/20 transition-colors">
+                        <i data-lucide="phone-call" class="w-6 h-6 text-red-500 mx-auto mb-2"></i>
+                        <div class="text-sm font-medium">Call Now</div>
+                    </a>
+                    <a href="https://wa.me/917982561083" target="_blank" class="bg-green-600/10 border border-green-600/20 rounded-xl p-4 text-center hover:bg-green-600/20 transition-colors">
+                        <i data-lucide="message-circle" class="w-6 h-6 text-green-500 mx-auto mb-2"></i>
+                        <div class="text-sm font-medium">WhatsApp</div>
+                    </a>
+                    <a href="mailto:yakubalam@yahoo.com" class="bg-blue-600/10 border border-blue-600/20 rounded-xl p-4 text-center hover:bg-blue-600/20 transition-colors">
+                        <i data-lucide="mail" class="w-6 h-6 text-blue-500 mx-auto mb-2"></i>
+                        <div class="text-sm font-medium">Email Us</div>
+                    </a>
+                    <a href="https://wa.me/917982561083?text=Hi%2C%20I%20want%20to%20enquire%20about%20admissions" target="_blank" class="bg-purple-600/10 border border-purple-600/20 rounded-xl p-4 text-center hover:bg-purple-600/20 transition-colors">
+                        <i data-lucide="send" class="w-6 h-6 text-purple-500 mx-auto mb-2"></i>
+                        <div class="text-sm font-medium">Quick Enquiry</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-8 lg:p-10">
+                <h3 class="text-xl font-semibold mb-6">Send Us Your Enquiry</h3>
+                <form id="contact-form" class="space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm text-slate-400 mb-1.5 block">Full Name *</label>
+                            <input type="text" required placeholder="Your Name" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600">
+                        </div>
+                        <div>
+                            <label class="text-sm text-slate-400 mb-1.5 block">Phone *</label>
+                            <input type="tel" required placeholder="7982561083" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-sm text-slate-400 mb-1.5 block">Email</label>
+                        <input type="email" placeholder="your@email.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600">
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm text-slate-400 mb-1.5 block">Course Interested In *</label>
+                            <select required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all appearance-none cursor-pointer">
+                                <option value="">Select Course</option>
+                                <optgroup label="School Level">
+                                    <option>NIOS 10th</option>
+                                    <option>NIOS 12th</option>
+                                </optgroup>
+                                <optgroup label="Diploma & Polytechnic">
+                                    <option>Polytechnic Diploma</option>
+                                    <option>Diploma (Distance/Online)</option>
+                                    <option>PG Diploma</option>
+                                </optgroup>
+                                <optgroup label="Undergraduate">
+                                    <option>B.Tech (Regular)</option>
+                                    <option>B.Tech (Distance/Online)</option>
+                                    <option>MBA / BBA</option>
+                                    <option>BCA / B.Sc</option>
+                                    <option>BA / B.Com</option>
+                                </optgroup>
+                                <optgroup label="Postgraduate">
+                                    <option>M.Tech</option>
+                                    <option>MBA</option>
+                                    <option>MCA / M.Sc / MA / M.Com</option>
+                                </optgroup>
+                                <optgroup label="Doctoral">
+                                    <option>PhD / Doctorate</option>
+                                </optgroup>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-slate-400 mb-1.5 block">Preferred Mode *</label>
+                            <select required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all appearance-none cursor-pointer">
+                                <option value="">Select Mode</option>
+                                <option>Regular</option>
+                                <option>Distance</option>
+                                <option>Online</option>
+                                <option>Not Sure — Need Guidance</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-sm text-slate-400 mb-1.5 block">Your Message</label>
+                        <textarea rows="3" placeholder="Tell us about your requirement..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600 resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 hover:bg-red-500 text-white py-4 rounded-lg text-lg font-medium transition-all shadow-lg shadow-red-600/20 flex items-center justify-center gap-2">
+                        <i data-lucide="send" class="w-5 h-5"></i> Submit Enquiry
+                    </button>
+                    <p class="text-xs text-slate-500 text-center">We respect your privacy. Your information is never shared.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-[#020617] border-t border-white/5 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center"><i data-lucide="star" class="w-5 h-5 text-white fill-white"></i></div>
+                    <div class="leading-tight"><span class="text-lg font-semibold block">Moon Star</span><span class="text-[9px] text-slate-400 uppercase tracking-widest">Consultancy Services</span></div>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Your trusted partner for all education admissions — NIOS to PhD, Regular to Online.</p>
+                <div class="space-y-2">
+                    <a href="tel:7982561083" class="flex items-center gap-2 text-slate-400 hover:text-red-400 text-sm transition-colors"><i data-lucide="phone" class="w-4 h-4"></i> 7982561083</a>
+                    <a href="mailto:yakubalam@yahoo.com" class="flex items-center gap-2 text-slate-400 hover:text-red-400 text-sm transition-colors"><i data-lucide="mail" class="w-4 h-4"></i> yakubalam@yahoo.com</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Courses</h4>
+                <ul class="space-y-2.5">
+                    <li><a href="#courses" class="text-slate-400 hover:text-red-400 text-sm transition-colors">NIOS 10th & 12th</a></li>
+                    <li><a href="#courses" class="text-slate-400 hover:text-red-400 text-sm transition-colors">B.Tech / M.Tech</a></li>
+                    <li><a href="#courses" class="text-slate-400 hover:text-red-400 text-sm transition-colors">MBA / BBA</a></li>
+                    <li><a href="#courses" class="text-slate-400 hover:text-red-400 text-sm transition-colors">PhD / Doctorate</a></li>
+                    <li><a href="#courses" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Diploma / Polytechnic</a></li>
+                    <li><a href="#courses" class="text-slate-400 hover:text-red-400 text-sm transition-colors">BCA / MCA / B.Sc</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Study Modes</h4>
+                <ul class="space-y-2.5">
+                    <li><a href="#modes" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Regular Mode</a></li>
+                    <li><a href="#modes" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Distance Mode</a></li>
+                    <li><a href="#modes" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Online Mode</a></li>
+                    <li><a href="#online-services" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Online Services</a></li>
+                    <li><a href="#online-services" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Video Counseling</a></li>
+                    <li><a href="#online-services" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Online Payment</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2.5">
+                    <li><a href="#home" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Home</a></li>
+                    <li><a href="#about" class="text-slate-400 hover:text-red-400 text-sm transition-colors">About Us</a></li>
+                    <li><a href="#testimonials" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Student Reviews</a></li>
+                    <li><a href="#contact" class="text-slate-400 hover:text-red-400 text-sm transition-colors">Contact Us</a></li>
+                    <li><a href="mailto:moonstar_consultancy@gmail.com" class="text-slate-400 hover:text-red-400 text-sm transition-colors">moonstar_consultancy@gmail.com</a></li>
+                </ul>
+                <div class="flex gap-3 mt-6">
+                    <a href="https://wa.me/917982561083" target="_blank" class="w-10 h-10 bg-slate-900 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-green-400 hover:border-green-500/50 transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-10 h-10 bg-slate-900 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:border-red-600/50 transition-all"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-10 h-10 bg-slate-900 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:border-red-600/50 transition-all"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-10 h-10 bg-slate-900 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:border-red-600/50 transition-all"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-slate-500 text-sm">&copy; 2025 Moon Star Consultancy Services. All rights reserved.</p>
+            <p class="text-slate-600 text-xs">Phone: 7982561083 | Email: yakubalam@yahoo.com / moonstar_consultancy@gmail.com</p>
+        </div>
+    </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/917982561083" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 transition-all hover:scale-110" title="Chat on WhatsApp">
+    <i data-lucide="message-circle" class="w-7 h-7 text-white"></i>
+</a>
+
+<!-- Call Float -->
+<a href="tel:7982561083" class="fixed bottom-6 left-6 z-50 w-14 h-14 bg-red-600 hover:bg-red-500 rounded-full flex items-center justify-center shadow-2xl shadow-red-600/30 transition-all hover:scale-110" title="Call Now">
+    <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+</a>
+
+<!-- Back to Top -->
+<button id="back-to-top" class="fixed bottom-24 left-6 z-50 w-11 h-11 bg-slate-900 border border-white/10 hover:border-red-600/50 rounded-full flex items-center justify-center transition-all opacity-0 pointer-events-none">
+    <i data-lucide="arrow-up" class="w-4 h-4 text-white"></i>
+</button>
+
+<script>
+    lucide.createIcons();
+
+    // Mobile menu
+    const mobileToggle=document.getElementById('mobile-toggle'),mobileMenu=document.getElementById('mobile-menu'),mobileClose=document.getElementById('mobile-close');
+    mobileToggle.addEventListener('click',()=>{mobileMenu.classList.remove('hidden');mobileMenu.classList.add('flex')});
+    mobileClose.addEventListener('click',()=>{mobileMenu.classList.add('hidden');mobileMenu.classList.remove('flex')});
+    document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{mobileMenu.classList.add('hidden');mobileMenu.classList.remove('flex')}));
+
+    // Navbar scroll
+    const navbar=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>{navbar.style.background=window.scrollY>50?'rgba(2,6,23,.95)':'rgba(2,6,23,.8)';navbar.style.borderBottom=window.scrollY>50?'1px solid rgba(255,255,255,.05)':'none'});
+
+    // Back to top
+    const btt=document.getElementById('back-to-top');
+    window.addEventListener('scroll',()=>{if(window.scrollY>500){btt.style.opacity='1';btt.style.pointerEvents='auto'}else{btt.style.opacity='0';btt.style.pointerEvents='none'}});
+    btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    // Mode tabs
+    document.querySelectorAll('.mode-tab').forEach(tab=>{
+        tab.addEventListener('click',()=>{
+            document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+            document.querySelectorAll('.mode-panel').forEach(p=>p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('panel-'+tab.dataset.mode).classList.add('active');
+        });
+    });
+
+    // Form
+    const form=document.getElementById('contact-form'),toast=document.getElementById('toast'),toastMsg=document.getElementById('toast-msg');
+    form.addEventListener('submit',e=>{e.preventDefault();toastMsg.textContent='Thank you! We will contact you within 1 hour on WhatsApp.';toast.classList.add('show');form.reset();setTimeout(()=>toast.classList.remove('show'),4000)});
+
+    // Counter
+    const counters=document.querySelectorAll('[data-count]');let cAnim=false;
+    function animC(){if(cAnim)return;const s=counters[0];if(!s)return;const r=s.closest('section').getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){cAnim=true;counters.forEach(c=>{const t=+c.dataset.count,suf=c.textContent.replace('0','');let cur=0;const inc=t/60;const ti=setInterval(()=>{cur+=inc;if(cur>=t){cur=t;clearInterval(ti)}c.textContent=Math.floor(cur)+suf},25)})}}
+    window.addEventListener('scroll',animC);animC();
+
+    // Scroll reveal
+    const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('section > div > .grid > *').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity .6s ease,transform .6s ease';obs.observe(el)});
+</script>
+</body>
+</html>
